@@ -105,6 +105,10 @@ namespace Persistence
                     }
                 };
 
+
+                context.Activities.AddRange(activities);
+                context.SaveChanges();
+
             }
 
 
