@@ -23,12 +23,14 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Activity>>> List()
         {
+            Console.WriteLine("getAll");
             return await mediator.Send(new ActivitiesList.Query());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Activity>> Details(Guid id)
         {
+            Console.WriteLine("get: " + id);
             return await mediator.Send(new ActivitiesDetails.Query { Id = id });
         }
 
@@ -37,5 +39,22 @@ namespace API.Controllers
         {
             return await mediator.Send(command);
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Unit>> Edit(Guid id, ActivitiesEdit.Command command)
+        {
+            Console.WriteLine("edit: " + id);
+            command.Id = id;
+            return await mediator.Send(command);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Unit>> Delete(Guid id)
+        {
+            Console.WriteLine("delete: " + id);
+            return await mediator.Send(new ActivitiesDelete.Command{Id = id});
+        }
+
+
     }
 }
